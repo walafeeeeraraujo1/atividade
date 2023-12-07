@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Referências</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Gerador de Referências</h1>
+        <form id="referenceForm">
+            <label for="referenceType">Escolha o tipo de referência:</label>
+            <select id="referenceType">
+                <option value="livro">Referência de Livro</option>
+                <option value="site">Referência de Site</option>
+                <option value="artigo">Referência de Artigo de Revista</option>
+            </select>
+
+            <div id="livroFields" class="reference-fields" style="display: none;">
+                <label for="livroTitulo">Título do Livro:</label>
+                <input type="text" id="livroTitulo" required>
+
+                <label for="livroAutor">Autor do Livro:</label>
+                <input type="text" id="livroAutor" required>
+
+                <label for="livroData">Data de Publicação:</label>
+                <input type="date" id="livroData" required>
+            </div>
+
+            <div id="siteFields" class="reference-fields" style="display: none;">
+                <label for="siteTitulo">Título do Site:</label>
+                <input type="text" id="siteTitulo" required>
+
+                <label for="siteURL">URL do Site:</label>
+                <input type="url" id="siteURL" required>
+
+                <label for="siteData">Data de Acesso:</label>
+                <input type="date" id="siteData" required>
+            </div>
+
+            <div id="artigoFields" class="reference-fields" style="display: none;">
+                <label for="artigoTitulo">Título do Artigo:</label>
+                <input type="text" id="artigoTitulo" required>
+
+                <label for="artigoAutor">Autor do Artigo:</label>
+                <input type="text" id="artigoAutor" required>
+
+                <label for="artigoData">Data de Publicação:</label>
+                <input type="date" id="artigoData" required>
+            </div>
+
+            <button type="button" onclick="gerarReferencia()">Gerar Referência</button>
+        </form>
+
+        <div id="resultado" class="resultado"></div>
+    </div>
+
+    <script>
+        function gerarReferencia() {
+            var tipoReferencia = document.getElementById("referenceType").value;
+            var resultado = document.getElementById("resultado");
+
+            switch (tipoReferencia) {
+                case "livro":
+                    var tituloLivro = document.getElementById("livroTitulo").value;
+                    var autorLivro = document.getElementById("livroAutor").value;
+                    var dataLivro = document.getElementById("livroData").value;
+                    resultado.innerHTML = "Referência de Livro: " + autorLivro + ". <i>" + tituloLivro + "</i>. Publicado em: " + dataLivro + ".";
+                    break;
+
+                case "site":
+                    var tituloSite = document.getElementById("siteTitulo").value;
+                    var urlSite = document.getElementById("siteURL").value;
+                    var dataSite = document.getElementById("siteData").value;
+                    resultado.innerHTML = "Referência de Site: <i>" + tituloSite + "</i>. Disponível em: " + urlSite + ". Acessado em: " + dataSite + ".";
+                    break;
+
+                case "artigo":
+                    var tituloArtigo = document.getElementById("artigoTitulo").value;
+                    var autorArtigo = document.getElementById("artigoAutor").value;
+                    var dataArtigo = document.getElementById("artigoData").value;
+                    resultado.innerHTML = "Referência de Artigo de Revista: " + autorArtigo + ". <i>" + tituloArtigo + "</i>. Publicado em: " + dataArtigo + ".";
+                    break;
+
+                default:
+                    resultado.innerHTML = "Tipo de referência não suportado.";
+            }
+        }
+
+        document.getElementById("referenceType").addEventListener("change", function() {
+            var tipoReferencia = this.value;
+
+            document.getElementById("livroFields").style.display = "none";
+            document.getElementById("siteFields").style.display = "none";
+            document.getElementById("artigoFields").style.display = "none";
+
+            if (tipoReferencia === "livro") {
+                document.getElementById("livroFields").style.display = "block";
+            } else if (tipoReferencia === "site") {
+                document.getElementById("siteFields").style.display = "block";
+            } else if (tipoReferencia === "artigo") {
+                document.getElementById("artigoFields").style.display = "block";
+            }
+        });
+    </script>
+</body>
+</html>
